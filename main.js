@@ -16,48 +16,59 @@ const db = mysql.createConnection({
 db.connect();
 const app = express()
 
-//메인 로그인창
 app.get('/', function(req, res){
-  db.query(`SELECT * FROM user`, function(error, topics){
-    console.log(topics)
-    var title = 'Welcome';
-    var description = 'Hello, Node.js';
-    var list = template.list(topics);
-    var html =template.login();
-    return res.send(html);
-  });
-});
+  db.query(`select * from dairy`, function(err, topics){
+    // var month_list = template.listOfmonth(topics);
+    console.log(topics[0].month);
+    // var day_list = template.listOfday(topics);
+    // var day_list = template.listOfday(topics);
+    // var day_list = template.listOfday(topics);
+    // console.log(topics);
+    res.send("test")
+  })
+})
+
+//메인 로그인창
+// app.get('/', function(req, res){
+//   db.query(`SELECT * FROM user`, function(error, topics){
+//     console.log(topics)
+//     var title = 'Welcome';
+//     var description = 'Hello, Node.js';
+//     var list = template.list(topics);
+//     var html = template.login();
+//     return res.send(html);
+//   });
+// });
 
 //로그인 유무 확인
-app.post('/', function(req, res){
-  console.log(req.body);
-  var body = '';
-  req.on('data', function(data){
-      body = body + data;
-  });
-  console.log(body);
-  req.on('end', function(){
-    var post = qs.parse(body);
-    console.log(post);
-  });
-  // login/userId로 진입해야하는데 어떻게 해야할까?
-  
-  res.send("login_test");
-})
+// app.post('/', function(req, res){
+//   var body = '';
+//   var user_id;
+//   req.on('data', function(data){
+//       body = body + data;
+//   });
+//   req.on('end', function(){
+//     var post = qs.parse(body);
+//     console.log("post1 : ", post.user_id);
+//     user_id = post.user_id;
+//     console.log(post);
+
+//   });
+// })
 
 //회원가입
-app.get('/test', function(req, res){
-  res.send("회원가입_test");
-})
+// app.get('/test', function(req, res){
+//   res.send("회원가입_test");
+// })
 
-//로그인한 유저의 다이어리 표시
-app.get('/login/:usereId', function(req, res){
-  // db.query(`SELECT * FROM user where id = ?`, [queryData.id], function(err, tmp){
-  //   var filteredId = path.parse(req.params.pageId).base;
-  //   console.log(filteredId);
-  // });
-  res.send("user test");
-});
+// //로그인한 유저의 다이어리 표시
+// app.get('/login/:usereId', function(req, res){
+//   // db.query(`SELECT * FROM user where id = ?`, [queryData.id], function(err, tmp){
+//   //   var filteredId = path.parse(req.params.pageId).base;
+//   //   console.log(filteredId);
+//   // });
+//   res.send("user test");
+// });
 
 
 app.listen(3000, () => console.log('Example app instening on port 3000!'))
