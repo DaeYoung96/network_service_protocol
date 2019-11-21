@@ -17,15 +17,36 @@ db.connect();
 const app = express()
 
 app.get('/', function(req, res){
-  db.query(`select * from dairy`, function(err, topics){
-    // var month_list = template.listOfmonth(topics);
-    console.log(topics[0].month);
-    // var day_list = template.listOfday(topics);
-    // var day_list = template.listOfday(topics);
-    // var day_list = template.listOfday(topics);
+  db.query(`select * from dairy order by month, day`, function(err, topics){
+    var html = template.show_table(topics);
     // console.log(topics);
-    res.send("test")
+    res.send(html)
   })
+})
+
+app.get('/create/:month/:day', function(req, res){
+  var monthId = path.parse(req.params.month).base;
+  var dayId = path.parse(req.params.day).base;
+  
+  console.log(monthId);
+  console.log(dayId);
+  res.send("test");
+})
+
+app.post('/create_process', function(req, res){
+
+})
+
+app.get('/update', function(req, res){
+
+})
+
+app.post('/update_process', function(req, res){
+
+})
+
+app.post('/delete_process', function(req, res){
+
 })
 
 //메인 로그인창
